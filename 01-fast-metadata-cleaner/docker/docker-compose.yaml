@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  data_generator:
+    image: waitingforcode/data-generator-blogging-platform:0.3-beta
+    volumes:
+      - /tmp/idempotency-ndc-porto-2024/01-fast-metadata-cleaner/input:/home/data_generator_user/data_generator_output
+      - ./generation_configuration_json.yaml:/home/data_generator_user/generation_configuration_json.yaml
+    entrypoint:
+      - python3
+      - /home/data_generator_user/data_generator/generate_dataset.py
+      - --config_file
+      - /home/data_generator_user/generation_configuration_json.yaml
+  postgresql:
+      image: postgres:15
+      container_name: wfc_postgresql
+      environment:
+        - POSTGRES_USER=wfc_test
+        - POSTGRES_PASSWORD=wfc_test
+        - POSTGRES_DB=wfc
+      ports:
+          - "5432:5432"
+      volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        - /tmp/idempotency-ndc-porto-2024/01-fast-metadata-cleaner/input:/data_to_load
