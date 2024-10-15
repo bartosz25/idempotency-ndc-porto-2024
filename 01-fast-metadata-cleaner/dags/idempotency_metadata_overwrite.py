@@ -38,7 +38,8 @@ with DAG('visits_loader', max_active_runs=1,
 
     def retrieve_path_for_table_creation(**context):
         execution_date = context['execution_date']
-        should_create_table = execution_date.day_of_week == 0 or execution_date.day_of_year == 1
+        # 1 => the count starts from Sunday (0)
+        should_create_table = execution_date.day_of_week == 1 or execution_date.day_of_year == 1
         return 'create_weekly_table' if should_create_table else "dummy_task"
 
 

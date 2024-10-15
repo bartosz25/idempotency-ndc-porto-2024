@@ -60,9 +60,9 @@ cd ../
     * perform the `MERGE` between the maybe restored table and the data from the file
     * update the _versions_ table so that the next run will be able to read the version created by the previous run
 
-5. Enable the _devices_synchronizer_ pipeline
+5. Enable the _devices_synchronizer_ pipeline. It should execute 5 times.
 
-6. After completing, run the _devices_reader_ DAG. It should print
+6. After completing , run the _devices_reader_ DAG. It should print
 the content of both tables, as:
 ```
 +-------------+----------+-----------------------------------------+---------------+

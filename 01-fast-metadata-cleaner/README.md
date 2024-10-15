@@ -24,7 +24,7 @@ docker-compose down --volumes; docker-compose up
 ⚠️ The demo is there for the Fast metadata cleaner pattern and the pipeline doesn't have any data quality controls
    to keep it simple for understanding. You should add these extra controls for production workloads, though. They're 
    also present in the book's Data quality chapter.
-6. Access the UI http://localhost:8080/home (wfc/wfc) and start the pipeline. It should run 4 times.
+6. Access the UI http://localhost:8080/home (wfc/wfc) and start the visits_loader pipeline. It should run 4 times.
 7. Check the table's content after the last planed run:
 ```
 docker exec -ti wfc_postgresql psql --user wfc_test -d wfc
@@ -39,11 +39,7 @@ wfc=# SELECT COUNT(*) FROM (SELECT COUNT(*) FROM wfc.visits GROUP BY visit_id, e
 -------
      0
 (1 row)
-
-wfc=# SELECT COUNT(*) FROM (SELECT COUNT(*) FROM wfc.visits_json_copy_week_45_2023 GROUP BY visit_id, event_time HAVING COUNT(*) = 1) AS t;
-ERROR:  relation "wfc.visits_json_copy_week_45_2023" does not exist
-LINE 1: SELECT COUNT(*) FROM (SELECT COUNT(*) FROM wfc.visits_json_c...
-                                                   ^
+                                     ^
 wfc=# SELECT COUNT(*) FROM (SELECT COUNT(*) FROM wfc.visits_week_45_2023 GROUP BY visit_id, event_time HAVING COUNT(*) = 1) AS t;
  count 
 -------

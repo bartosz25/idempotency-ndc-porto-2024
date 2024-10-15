@@ -13,7 +13,7 @@ docker exec -ti ndc_porto_kafka kafka-console-producer.sh --bootstrap-server loc
 ```
 docker exec ndc_porto_scylla cqlsh -f /init.cql
 ```
-3. Explain the [session_sgenerator_job.py](sessions_generator_job.py)
+3. Explain the [sessions_generator_job.py](sessions_generator_job.py)
 * stateful job that applies a grouping logic for the events;
   * typically, we could solve it much easier if the input dataset had a reliable _visit id_ attribute
 * explain the [visits_mapper.py](visits_mapper.py)
@@ -38,7 +38,7 @@ docker exec ndc_porto_scylla cqlsh -f /init.cql
 It should close the session and write it to ScyllaDB.
 7. Check the sessions in the table:
 ```
-$ docker exec -ti ndc_porto_scylla cqlsh
+docker exec -ti ndc_porto_scylla cqlsh
 Connected to  at 192.168.112.3:9042.
 [cqlsh 5.0.1 | Cassandra 3.0.8 | CQL spec 3.3.1 | Native protocol v4]
 Use HELP for help.
